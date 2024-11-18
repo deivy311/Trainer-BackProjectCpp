@@ -141,6 +141,9 @@ FinalProjectCPP/
 
 4. **Final Output**:
    - The final implementation should passes all tests and follows coding best practices.
+   
+![Testing Image](media/Testing.png)
+
 
 
 # C++ Evaluation Guide
