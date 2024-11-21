@@ -1,14 +1,14 @@
-#include "SavingAccount.h"
+#include "SavingsAccount.h"
 #include <iostream>
 
-SavingAccount::SavingAccount(int accNum, const std::string& holderName, double initialBalance, double interest)
+SavingsAccount::SavingsAccount(int accNum, const std::string& holderName, double initialBalance, double interest)
     : BankAccount(accNum, holderName, initialBalance), interestRate(interest) {}
 
-void SavingAccount::deposit(double amount) {
+void SavingsAccount::deposit(double amount) {
         if (amount > 0) balance += amount;
     }
 
-bool SavingAccount::withdraw(double amount) {
+bool SavingsAccount::withdraw(double amount) {
     if (balance >= amount) {
         balance -= amount;
         return true;
@@ -16,11 +16,11 @@ bool SavingAccount::withdraw(double amount) {
     return false;
 }
 
-void SavingAccount::calculateInterest() {
+void SavingsAccount::calculateInterest() {
     balance += balance * interestRate;
 }
 
-void SavingAccount::displayAccountInfo() const {
+void SavingsAccount::displayAccountInfo() const {
     std::cout << "Savings Account - " << accountNumber << " (" << accountHolderName << ")\n";
     std::cout << "Balance: $" << balance << ", Interest Rate: " << interestRate << "%\n";
 }
