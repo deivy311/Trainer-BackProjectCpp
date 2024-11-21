@@ -7,6 +7,7 @@ add_library(StudentLib
     StudentCode.cpp
     SavingsAccount.cpp
     CheckingAccount.cpp
+    ThreadSafeAccount.cpp
 )
 
 # Include directories
