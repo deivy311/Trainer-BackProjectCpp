@@ -2,6 +2,7 @@
 #define BANK_ACCOUNT_H
 
 #include <string>
+#include <iostream>
 
 class BankAccount {
 protected:
@@ -10,7 +11,7 @@ protected:
     double balance;
 
 public:
-    BankAccount(int accNum, const std::string& holderName, double initialBalance);
+    BankAccount(int accNum, const std::string& holderName, double initialBalance); 
     virtual ~BankAccount() = default;
 
     virtual void deposit(double amount) = 0;
