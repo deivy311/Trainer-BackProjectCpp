@@ -1,6 +1,4 @@
-#ifndef BANK_ACCOUNT_H
-#define BANK_ACCOUNT_H
-
+#pragma once
 #include <string>
 
 class BankAccount {
@@ -10,14 +8,12 @@ protected:
     double balance;
 
 public:
-    BankAccount(int accNum, const std::string& holderName, double initialBalance);
-    virtual ~BankAccount() = default;
+    BankAccount(int accountNumber, const std::string& accountHolderName, double initialBalance);
+    virtual ~BankAccount();
 
     virtual void deposit(double amount) = 0;
     virtual bool withdraw(double amount) = 0;
     virtual void displayAccountInfo() const = 0;
 
-    double getBalance() const { return balance; }
+    double getBalance() const;
 };
-
-#endif // BANK_ACCOUNT_H

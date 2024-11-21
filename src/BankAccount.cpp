@@ -1,4 +1,10 @@
 #include "BankAccount.h"
 
-BankAccount::BankAccount(int accNum, const std::string& holderName, double initialBalance)
-    : accountNumber(accNum), accountHolderName(holderName), balance(initialBalance) {}
+BankAccount::BankAccount(int accountNumber, const std::string& accountHolderName, double initialBalance)
+    : accountNumber(accountNumber), accountHolderName(accountHolderName), balance(initialBalance) {}
+
+BankAccount::~BankAccount() {}
+
+double BankAccount::getBalance() const {
+    return balance;
+}
