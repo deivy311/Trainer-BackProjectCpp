@@ -11,35 +11,16 @@ class SavingsAccount : public BankAccount {
 
     public:
 
-    //Constructor
-    SavingsAccount(int accountNumber,const std::string& name, double initialBalance,double interestRate):
-    BankAccount(accountNumber,name,initialBalance), interestRate(interestRate){}
+    // Constructor
+    SavingsAccount(int accNum, const std::string& holderName, double initialBalance, double interestRate);
 
-    // deposit (with interest) function
-    void deposit(double amount) override{
-        balance+=amount;
-        balance+=(balance*interestRate/100); // Add interset
-    }
+    // Overridden methods
+    void deposit(double amount) override;
+    bool withdraw(double amount) override;
+    void displayAccountInfo() const override;
 
-    //withdraw function
-
-    bool withdraw(double amount) override{
-        if(balance >= amount){
-            balance-=amount;
-            return true;
-        }
-        return false; //insufficient balance
-    }
-  
-
-    // Display account info
-    void displayAccountInfo() const override {
-        std::cout << "Savings Account [" << accountNumber << "]\n"
-                  << "Holder: " << accountHolderName << "\n"
-                  << "Balance: " << balance << "\n"
-                  << "Interest Rate: " << interestRate << "%\n";
-    }
-    
+    // Additional method to calculate interest
+    void addInterest();
 
 };
 

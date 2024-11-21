@@ -1,5 +1,5 @@
-#ifndef BANK_ACCOUNT_H
-#define BANK_ACCOUNT_H
+#ifndef BANK_ACCOUNT_H // to prevent the file from being included more than once
+#define BANK_ACCOUNT_H 
 
 #include <string>
 #include <iostream>
