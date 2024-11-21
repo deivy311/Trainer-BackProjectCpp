@@ -11,5 +11,6 @@ public:
     void deposit(double amount) override;
     bool withdraw(double amount) override;
     void displayAccountInfo() const override;
+
     void applyInterest();
 };

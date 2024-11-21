@@ -6,10 +6,11 @@ private:
     double overdraftLimit;
 
 public:
-    // Constructor Declaration
     CheckingAccount(int accountNumber, const std::string& accountHolderName, double initialBalance, double overdraftLimit);
 
     void deposit(double amount) override;
     bool withdraw(double amount) override;
     void displayAccountInfo() const override;
+
+    double getOverdraftLimit() const { return overdraftLimit; }
 };
