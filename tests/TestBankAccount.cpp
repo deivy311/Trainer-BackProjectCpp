@@ -1,8 +1,7 @@
 #include <gtest/gtest.h>
-#include "BankAccount.h"
-#include "StudentCode.h"
+#include "CheckingAccount.h"
+#include "SavingAccount.h"
 
-// Test example: Ensure that students' implementation meets basic requirements.
 TEST(StudentCodeTest, PlaceholderTest) {
     EXPECT_TRUE(true); // Placeholder test
 }

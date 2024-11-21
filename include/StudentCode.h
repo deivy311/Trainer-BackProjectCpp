@@ -1,6 +1,15 @@
-#ifndef STUDENT_CODE_H
-#define STUDENT_CODE_H
+#ifndef STUDENTCODE_H
+#define STUDENTCODE_H
 
-// Add your derived classes and functions here.
+#include <vector>
+#include <algorithm>
 
-#endif // STUDENT_CODE_H
+// Function Template
+template <typename T>
+void sortAccountsByBalance(std::vector<T>& accounts) {
+    std::sort(accounts.begin(), accounts.end(), [](const T& a, const T& b) {
+        return a.getBalance() < b.getBalance();
+    });
+}
+
+#endif

@@ -17,6 +17,7 @@ public:
     virtual bool withdraw(double amount) = 0;
     virtual void displayAccountInfo() const = 0;
 
+    int getAccountNumber() const { return accountNumber; }
     double getBalance() const { return balance; }
 };
 
