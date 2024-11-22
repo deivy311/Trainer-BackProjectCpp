@@ -3,9 +3,10 @@
 #include <stdexcept>
 
 // Constructor
-CheckingAccount::CheckingAccount(int accountNumber, const std::string &accountHolderName, double initialBalance, double overdraftLimit) : BankAccount(accountNumber, accountHolderName, initialBalance), overdraftLimit(overdraftLimit) {}
+CheckingAccount::CheckingAccount(int accountNumber, const std::string &accountHolderName, double initialBalance, double overdraftLimit)
+    : BankAccount(accountNumber, accountHolderName, initialBalance), overdraftLimit(overdraftLimit) {}
 
-// deposit
+// Deposit
 void CheckingAccount::deposit(double amount_to_deposit)
 {
     if (amount_to_deposit <= 0)
@@ -16,7 +17,7 @@ void CheckingAccount::deposit(double amount_to_deposit)
     std::cout << "\033[32mDeposit completed.\033[0m" << std::endl;
 }
 
-// withdraw + overdraftLimit
+// Withdraw with overdraft limit logic
 bool CheckingAccount::withdraw(double amount_to_withdraw)
 {
     if (amount_to_withdraw <= 0)
@@ -25,19 +26,18 @@ bool CheckingAccount::withdraw(double amount_to_withdraw)
     }
     else if (amount_to_withdraw > (balance + overdraftLimit))
     {
-        throw std::invalid_argument("\033[31mERROR!! You can't WITHDRAW more than balance and overdraft limit.\033[0m");
-        return false; // failed
+        throw std::invalid_argument("\033[31mERROR!! You can't WITHDRAW more than the balance and overdraft limit.\033[0m");
     }
     balance -= amount_to_withdraw;
     std::cout << "\033[32mWithdraw completed.\033[0m" << std::endl;
     return true; // succeeded
 }
 
-// displayAccountInfo
+// Display Account Info
 void CheckingAccount::displayAccountInfo() const
 {
-    std::cout << "Account Number:           " << accountNumber << "\n"
-              << "Account Holder Name:      " << accountHolderName << "\n"
-              << "Balance:                  " << balance << " AED\n"
-              << "Overdraft Limit:          " << overdraftLimit << "% \n";
+    std::cout << "Account Number:      " << accountNumber << "\n"
+              << "Account Holder Name: " << accountHolderName << "\n"
+              << "Balance:             " << balance << " AED\n"
+              << "Overdraft Limit:     " << overdraftLimit << " AED\n";
 }
