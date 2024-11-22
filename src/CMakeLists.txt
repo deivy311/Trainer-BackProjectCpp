@@ -5,6 +5,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 add_library(StudentLib
     BankAccount.cpp
     StudentCode.cpp
+    SavingsAccount.cpp
+    CheckingAccount.cpp
+    StudentCode.cpp
+    
 )
 
 # Include directories
