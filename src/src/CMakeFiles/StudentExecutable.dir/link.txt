@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/StudentExecutable.dir/StudentCode.cpp.o -o StudentExecutable  libStudentLib.a 

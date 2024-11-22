@@ -1,0 +1,5 @@
+if(EXISTS "/home/latifa/projects/Trainer-BackProjectCpp/src/tests/TestBankAccount[1]_tests.cmake")
+  include("/home/latifa/projects/Trainer-BackProjectCpp/src/tests/TestBankAccount[1]_tests.cmake")
+else()
+  add_test(TestBankAccount_NOT_BUILT TestBankAccount_NOT_BUILT)
+endif()

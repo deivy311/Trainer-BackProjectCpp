@@ -117,5 +117,56 @@ int main()
         std::cerr << "\033[31mException: " << e.what() << "\033[0m" << std::endl;
     }
 
+      // Testing Function Templates and Account Analytics
+    try
+    {
+        // Create a vector of all accounts for analytics
+        std::vector<SavingsAccount> accounts = {
+            {74666444, "Sara", 1200.0, 5.0},
+            {45233452, "Saeed", 500.0, 4.0},
+            {12345678, "Sultan", 2000.0, 3.0},
+            {98765432, "Maryam", 1500.0, 4.5}};
+
+        // Display initial account information
+        std::cout << "\033[33m\nInitial Account Information for Analytics:\n\033[0m";
+        for (const auto &account : accounts)
+        {
+            account.displayAccountInfo();
+            std::cout << "--------------------------------------------\n";
+        }
+
+        // Test sortByBalance
+        std::cout << "\033[33m\nSorting Accounts by Balance:\n\033[0m";
+        sortByBalance(accounts);
+
+        // Display sorted account information
+        std::cout << "\033[34m\nAccounts After Sorting by Balance:\n\033[0m";
+        for (const auto &account : accounts)
+        {
+            account.displayAccountInfo();
+            std::cout << "--------------------------------------------\n";
+        }
+
+        // Test AccountAnalytics for average balance
+        AccountAnalytics<SavingsAccount> analytics;
+        double averageBalance = analytics.averageBalance(accounts);
+        std::cout << "\033[32m\nAverage Balance of Accounts: " << averageBalance << " AED\033[0m\n";
+
+        // Find the account with the highest balance
+        try
+        {
+            SavingsAccount highestBalanceAccount = analytics.highestBalance(accounts);
+            std::cout << "\033[32m\nAccount with the Highest Balance:\n\033[0m";
+            highestBalanceAccount.displayAccountInfo();
+        }
+        catch (const std::exception &e)
+        {
+            std::cerr << "\033[31m" << e.what() << "\033[0m" << std::endl;
+        }
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << "\033[31mException: " << e.what() << "\033[0m" << std::endl;
+    }
     return 0;
 }

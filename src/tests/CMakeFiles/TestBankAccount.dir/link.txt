@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/TestBankAccount.dir/TestBankAccount.cpp.o -o TestBankAccount  ../lib/libgtest.a ../lib/libgtest_main.a ../src/libStudentLib.a ../lib/libgtest.a 

@@ -1,0 +1,2 @@
+/usr/bin/ar qc libStudentLib.a CMakeFiles/StudentLib.dir/BankAccount.cpp.o CMakeFiles/StudentLib.dir/CheckingAccount.cpp.o CMakeFiles/StudentLib.dir/SavingsAccount.cpp.o CMakeFiles/StudentLib.dir/StudentCode.cpp.o
+/usr/bin/ranlib libStudentLib.a
