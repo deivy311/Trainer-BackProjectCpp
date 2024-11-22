@@ -30,15 +30,17 @@ bool SavingsAccount::withdraw(double amount) {   // this withdraw for Saving is 
     return true;
 }
 
-void SavingsAccount::calculateInterest() {
-    balance += (balance * interestRate / 100.0); // Interest calculation
+void SavingsAccount::applyInterest() {
+    balance += (balance * interestRate / 100);
 }
 
+
 void SavingsAccount::displayAccountInfo() const {
-    std::cout << "Savings Account #" << accountNumber << "\n"
-              << "Holder: " << accountHolderName << "\n"
-              << "Balance: $" << balance << "\n"
-              << "Interest Rate: " << interestRate << "%\n";
+    std::cout << "Savings Account Info:\n";
+    std::cout << "Account Number: " << accountNumber << "\n";
+    std::cout << "Account Holder: " << accountHolderName << "\n";
+    std::cout << "Balance: " << balance << "\n";
+    std::cout << "Interest Rate: " << interestRate << "%\n";
 }
 
 
