@@ -9,22 +9,31 @@ CheckingAccount::CheckingAccount(int accNum, const std::string& holderName, doub
 // Inherits BankAccount attributes and behavior (implement the methods (deposit / withdraw with overdraft concept / and the display data))
 
 void CheckingAccount::deposit(double amount) {
-    if (amount > 0) balance += amount; // Override with base class attribute (BankAccount) -- remain the same
+       if (amount <= 0) {
+        throw std::invalid_argument("Deposit amount must be positive.");
+    }
+    balance += amount;
+} // Override with base class attribute (BankAccount) -- remain the same
 }
 
 bool CheckingAccount::withdraw(double amount) { // this withdraw , for checking account we have the over draft concept
-    if (amount > 0 && (balance - amount) >= -overdraftLimit) { // Allows overdraft
-        balance -= amount;
-        return true;// Specific withdrawal logic for checking accounts sspecifically (overdraft)
+    if (amount <= 0) {
+        throw std::invalid_argument("Withdrawal amount must be positive.");
     }
-    return false;
+    if (balance - amount < -overdraftLimit) {
+        return false; // Overdraft limit exceeded
+    }
+    balance -= amount;
+    return true;
 }
 
 void CheckingAccount::displayAccountInfo() const {
-    std::cout << "Savings Account #" << accountNumber << "\n"
-              << "Holder: " << accountHolderName << "\n"
-              << "Balance: $" << balance << "\n"
-              << "Overdraft Limit: $" << overdraftLimit << "\n";
+    std::cout << "Checking Account Info:\n";
+    std::cout << "Account Number: " << accountNumber << "\n";
+    std::cout << "Account Holder: " << accountHolderName << "\n";
+    std::cout << "Balance: " << balance << "\n";
+    std::cout << "Overdraft Limit: " << overdraftLimit << "\n";
+}
 
 
 }

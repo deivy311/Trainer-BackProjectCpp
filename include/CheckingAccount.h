@@ -1,3 +1,6 @@
+#ifndef CHECKINGACCOUNT_H
+#define CHECKINGACCOUNT_H
+
 #include "BankAccount.h"
 
 class CheckingAccount : public BankAccount{
@@ -9,7 +12,7 @@ private:
 public: 
 
 //constructor 
-CheckingAccount(int accNum, const std::string& holderName, double initialBalance, double overdraft);
+CheckingAccount(int accNum, const std::string& holderName, double initialBalance, double overdraft)
 
 //override the inhereted methods from the base class (BankAccount)
     void deposit(double amount) override;
@@ -17,3 +20,6 @@ CheckingAccount(int accNum, const std::string& holderName, double initialBalance
     void displayAccountInfo() const override;
 
 };
+
+
+#endif // CHECKINGACCOUNT_H

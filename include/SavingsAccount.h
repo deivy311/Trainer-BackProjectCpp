@@ -12,7 +12,7 @@ public:
     void deposit(double amount) override;
     bool withdraw(double amount) override;
     void displayAccountInfo() const override;
-    void calculateInterest(); // Specific to SavingsAccount
+    void applyInterest(); // Specific to SavingsAccount
 };
 
 #endif // SAVINGSACCOUNT_H

@@ -31,6 +31,10 @@ public:
     virtual bool withdraw(double amount) = 0;
     virtual void displayAccountInfo() const = 0;
 
+    
+    
+    int getAccountNumber() const { return accountNumber; }
+    std::string getAccountHolderName() const { return accountHolderName; }
     double getBalance() const { return balance; }   // Encapsulation: Accessor
 };
 

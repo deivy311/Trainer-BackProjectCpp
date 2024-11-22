@@ -11,16 +11,23 @@ SavingsAccount::SavingsAccount(int accNum, const std::string& holderName, double
     : BankAccount(accNum, holderName, initialBalance), interestRate(rate) {}
 
 void SavingsAccount::deposit(double amount) {
-    if (amount > 0) balance += amount; // Override with base class attribute (BankAccount)
-}
+    if (amount <= 0) {
+        throw std::invalid_argument("Deposit amount must be positive.");
+    }
+    balance += amount;
+} // Override with base class attribute (BankAccount)
+
 
 
 bool SavingsAccount::withdraw(double amount) {   // this withdraw for Saving is the normal but for checking account we have the over draft concept
-    if (amount > 0 && amount <= balance) {
-        balance -= amount;
-        return true; // Specific withdrawal logic for savings accounts
+    if (amount <= 0) {
+        throw std::invalid_argument("Withdrawal amount must be positive.");
     }
-    return false;
+    if (balance < amount) {
+        return false; // Insufficient balance
+    }
+    balance -= amount;
+    return true;
 }
 
 void SavingsAccount::calculateInterest() {
