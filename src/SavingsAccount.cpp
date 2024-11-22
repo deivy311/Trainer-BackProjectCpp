@@ -1,36 +1,41 @@
+// SavingsAccount.cpp
 #include "SavingsAccount.h"
+#include <iostream>
+#include <stdexcept>
 
-SavingsAccount::SavingsAccount(int accountNumber, const std::string& accountHolderName, double initialBalance, double interestRate)
-    : BankAccount(accountNumber, accountHolderName, initialBalance), interestRate(interestRate) {}
+SavingsAccount::SavingsAccount(int accountNumber, const std::string& accountHolderName, double balance, double interestRate)
+    : BankAccount(accountNumber, accountHolderName, balance), interestRate(interestRate) {}
 
 void SavingsAccount::deposit(double amount) {
-    if (amount > 0) {
-        balance += amount;
-    } else {
+    if (amount <= 0) {
         throw std::invalid_argument("Deposit amount must be positive.");
     }
+    balance += amount;
 }
 
 bool SavingsAccount::withdraw(double amount) {
     if (amount <= 0) {
         throw std::invalid_argument("Withdrawal amount must be positive.");
     }
-
-    if (amount <= balance) {
-        balance -= amount;
-        return true;
+    if (amount > balance) {
+        throw std::runtime_error("Insufficient funds.");
     }
-
-    return false; // Insufficient balance
-}
-
-void SavingsAccount::applyInterest() {
-    balance += balance * (interestRate / 100.0);
+    balance -= amount;
+    return true;
 }
 
 void SavingsAccount::displayAccountInfo() const {
-    std::cout << "Savings Account [" << accountNumber << "]\n"
-              << "Holder: " << accountHolderName << "\n"
-              << "Balance: " << balance << "\n"
+    std::cout << "Savings Account Info:\n"
+              << "Account Number: " << accountNumber << "\n"
+              << "Account Holder: " << accountHolderName << "\n"
+              << "Balance: $" << balance << "\n"
               << "Interest Rate: " << interestRate << "%\n";
+}
+
+void SavingsAccount::addInterest() {
+    balance += balance * (interestRate / 100);
+}
+
+double SavingsAccount::getInterestRate() const {
+    return interestRate;
 }

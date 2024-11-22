@@ -4,6 +4,7 @@ add_library(StudentLib
     SavingsAccount.cpp
     CheckingAccount.cpp
     ThreadSafeAccount.cpp
+    AccountFactory.cpp
     StudentCode.cpp
 )
 
@@ -18,4 +19,4 @@ target_link_libraries(StudentLib PRIVATE Threads::Threads)
 add_executable(student  main.cpp)
 
 # Link test executable with GoogleTest and StudentLib
-target_link_libraries(student PRIVATE  StudentLib)
+target_link_libraries(student PRIVATE gtest  StudentLib)

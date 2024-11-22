@@ -1,48 +1,36 @@
+// StudentCode.cpp
 #include "StudentCode.h"
-#include "SavingsAccount.h"
-#include "CheckingAccount.h"
-#include "Templates.h"
-#include "Analytics.h"
-#include <iostream>
-#include <vector>
+#include "AccountFactory.h"
+#include <memory>
+
+// Definition of template specializations
+
+// Specialization for SavingsAccount
+template <>
+void processAccount<SavingsAccount>(const SavingsAccount& account) {
+    std::cout << "Processing Savings Account with interest rate: " << account.getInterestRate() << "%\n";
+}
+
+// Specialization for CheckingAccount
+template <>
+void processAccount<CheckingAccount>(const CheckingAccount& account) {
+    std::cout << "Processing Checking Account with overdraft limit: $" << account.getOverdraftLimit() << "\n";
+}
 
 void runBankingDemo() {
-    // Create accounts
-    SavingsAccount savings(1001, "Alice", 1000.0, 5.0); // 5% interest rate
-    CheckingAccount checking(2001, "Bob", 500.0, 200.0); // $200 overdraft limit
+    auto savingsAccount = AccountFactory::createAccount(AccountType::SAVINGS, 1001, "John Doe", 5000.0);
+    auto checkingAccount = AccountFactory::createAccount(AccountType::CHECKING, 1002, "Jane Smith", 3000.0);
 
-    // Deposit and withdraw
-    savings.deposit(200.0);
-    checking.withdraw(600.0);
+    savingsAccount->displayAccountInfo();
+    checkingAccount->displayAccountInfo();
 
-    // Display account info
-    savings.displayAccountInfo();
-    savings.applyInterest(); // Apply interest
-    savings.displayAccountInfo();
-
-    checking.displayAccountInfo();
-
-    // Create a collection of accounts
-    std::vector<SavingsAccount> accounts = {
-        SavingsAccount(1002, "Charlie", 1500.0, 3.0),
-        SavingsAccount(1003, "Diana", 2000.0, 4.0)
-    };
-
-    // Sort accounts by balance
-    sortAccountsByBalance(accounts);
-
-    // Display sorted accounts
-    std::cout << "\nSorted Savings Accounts by Balance:\n";
-    for (const auto& account : accounts) {
-        account.displayAccountInfo();
+    auto savingsPtr = std::dynamic_pointer_cast<SavingsAccount>(savingsAccount);
+    if (savingsPtr) {
+        processAccount(*savingsPtr);
     }
 
-    // Use AccountAnalytics
-    AccountAnalytics<SavingsAccount> analytics;
-    analytics.addAccount(savings);
-    for (const auto& account : accounts) {
-        analytics.addAccount(account);
+    auto checkingPtr = std::dynamic_pointer_cast<CheckingAccount>(checkingAccount);
+    if (checkingPtr) {
+        processAccount(*checkingPtr);
     }
-
-    std::cout << "\nTotal Balance in Savings Accounts: " << analytics.calculateTotalBalance() << "\n";
 }

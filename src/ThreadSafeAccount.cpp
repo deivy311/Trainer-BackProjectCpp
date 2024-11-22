@@ -1,34 +1,37 @@
+// ThreadSafeAccount.cpp
 #include "ThreadSafeAccount.h"
+#include <utility>
 
-ThreadSafeAccount::ThreadSafeAccount(int accountNumber, const std::string& accountHolderName, double initialBalance)
-    : BankAccount(accountNumber, accountHolderName, initialBalance) {}
+ThreadSafeAccount::ThreadSafeAccount(std::shared_ptr<BankAccount> acc)
+    : BankAccount(acc->getAccountNumber(), acc->getAccountHolderName(), acc->getBalance()),
+      account(std::move(acc)) {}
 
 void ThreadSafeAccount::deposit(double amount) {
     std::lock_guard<std::mutex> lock(mtx);
-    if (amount > 0) {
-        balance += amount;
-    } else {
-        throw std::invalid_argument("Deposit amount must be positive.");
-    }
+    account->deposit(amount);
 }
 
 bool ThreadSafeAccount::withdraw(double amount) {
     std::lock_guard<std::mutex> lock(mtx);
-    if (amount <= 0) {
-        throw std::invalid_argument("Withdrawal amount must be positive.");
-    }
-
-    if (amount <= balance) {
-        balance -= amount;
-        return true;
-    }
-
-    return false; // Exceeds balance
+    return account->withdraw(amount);
 }
 
 void ThreadSafeAccount::displayAccountInfo() const {
     std::lock_guard<std::mutex> lock(mtx);
-    std::cout << "Thread-Safe Account [" << accountNumber << "]\n"
-              << "Holder: " << accountHolderName << "\n"
-              << "Balance: " << balance << "\n";
+    account->displayAccountInfo();
+}
+
+int ThreadSafeAccount::getAccountNumber() const {
+    std::lock_guard<std::mutex> lock(mtx);
+    return account->getAccountNumber();
+}
+
+const std::string& ThreadSafeAccount::getAccountHolderName() const {
+    std::lock_guard<std::mutex> lock(mtx);
+    return account->getAccountHolderName();
+}
+
+double ThreadSafeAccount::getBalance() const {
+    std::lock_guard<std::mutex> lock(mtx);
+    return account->getBalance();
 }

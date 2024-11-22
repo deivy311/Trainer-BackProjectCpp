@@ -1,37 +1,37 @@
+// CheckingAccount.cpp
 #include "CheckingAccount.h"
+#include <iostream>
+#include <stdexcept>
 
-CheckingAccount::CheckingAccount(int accountNumber, const std::string& accountHolderName, double initialBalance, double overdraftLimit)
-    : BankAccount(accountNumber, accountHolderName, initialBalance), overdraftLimit(overdraftLimit) {}
+CheckingAccount::CheckingAccount(int accountNumber, const std::string& accountHolderName, double balance, double overdraftLimit)
+    : BankAccount(accountNumber, accountHolderName, balance), overdraftLimit(overdraftLimit) {}
 
 void CheckingAccount::deposit(double amount) {
-    if (amount > 0) {
-        balance += amount;
-    } else {
+    if (amount <= 0) {
         throw std::invalid_argument("Deposit amount must be positive.");
     }
+    balance += amount;
 }
 
 bool CheckingAccount::withdraw(double amount) {
     if (amount <= 0) {
         throw std::invalid_argument("Withdrawal amount must be positive.");
     }
-
-    if (amount <= balance) {
-        balance -= amount;
-        return true;
-    } else if (amount <= balance + overdraftLimit) {
-        double overdraftUsed = amount - balance;
-        balance = 0;
-        overdraftLimit -= overdraftUsed;
-        return true;
+    if (balance + overdraftLimit < amount) {
+        throw std::runtime_error("Overdraft limit exceeded.");
     }
-
-    return false; // Exceeds overdraft limit
+    balance -= amount;
+    return true;
 }
 
 void CheckingAccount::displayAccountInfo() const {
-    std::cout << "Checking Account [" << accountNumber << "]\n"
-              << "Holder: " << accountHolderName << "\n"
-              << "Balance: " << balance << "\n"
-              << "Overdraft Limit: " << overdraftLimit << "\n";
+    std::cout << "Checking Account Info:\n"
+              << "Account Number: " << accountNumber << "\n"
+              << "Account Holder: " << accountHolderName << "\n"
+              << "Balance: $" << balance << "\n"
+              << "Overdraft Limit: $" << overdraftLimit << "\n";
+}
+
+double CheckingAccount::getOverdraftLimit() const {
+    return overdraftLimit;
 }

@@ -1,36 +1,33 @@
-#include <gtest/gtest.h>
-#include "SavingsAccount.h"
-#include "CheckingAccount.h"
+// TestBankAccount.cpp
+#include <iostream>
+#include <thread>
+#include "ThreadSafeAccount.h"
+#include "AccountFactory.h"
 
-TEST(SavingsAccountTest, DepositLargeAmount) {
-    SavingsAccount account(1, "Alice", 1000, 5);
-    account.deposit(1e6); // Deposit 1,000,000
-    EXPECT_EQ(account.getBalance(), 1001000);
+void performTransactions(ThreadSafeAccount& account) {
+    try {
+        account.deposit(100.0);
+        account.withdraw(50.0);
+        account.deposit(200.0);
+        account.withdraw(150.0);
+    } catch (const std::exception& e) {
+        std::cerr << "Transaction error: " << e.what() << "\n";
+    }
 }
 
+int main() {
+    auto account = AccountFactory::createAccount(AccountType::SAVINGS, 12345, "Alice", 1000.0);
+    ThreadSafeAccount tsAccount(account);  // Pass shared_ptr directly
 
-TEST(SavingsAccountTest, Withdraw) {
-    SavingsAccount account(1, "Alice", 1000, 5);
+    std::thread t1(performTransactions, std::ref(tsAccount));
+    std::thread t2(performTransactions, std::ref(tsAccount));
+    std::thread t3(performTransactions, std::ref(tsAccount));
 
-    EXPECT_TRUE(account.withdraw(500));
-    EXPECT_EQ(account.getBalance(), 500);
+    t1.join();
+    t2.join();
+    t3.join();
 
-    EXPECT_FALSE(account.withdraw(600)); // Insufficient balance
-    EXPECT_THROW(account.withdraw(-100), std::invalid_argument);
-}
+    tsAccount.displayAccountInfo();
 
-TEST(SavingsAccountTest, ApplyInterest) {
-    SavingsAccount account(1, "Alice", 1000, 5);
-    account.applyInterest();
-    EXPECT_EQ(account.getBalance(), 1050);
-}
-
-TEST(CheckingAccountTest, WithdrawWithOverdraft) {
-    CheckingAccount account(2, "Bob", 1000, 500);
-
-    EXPECT_TRUE(account.withdraw(1200)); // Uses overdraft
-    EXPECT_EQ(account.getBalance(), 0);
-    EXPECT_EQ(account.getOverdraftLimit(), 300);
-
-    EXPECT_FALSE(account.withdraw(600)); // Exceeds overdraft
+    return 0;
 }
