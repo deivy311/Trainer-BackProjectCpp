@@ -18,6 +18,6 @@ public:
     virtual void displayAccountInfo() const = 0;
 
     double getBalance() const { return balance; }
-};
 
+};
 #endif // BANK_ACCOUNT_H
