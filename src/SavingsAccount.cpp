@@ -16,7 +16,7 @@ bool SavingsAccount::withdraw(double amount) {
         throw std::invalid_argument("Withdrawal amount cannot be negative.");
     }
     if (amount == 0) {
-        throw std::invalid_argument("Withdrawal amount cannot be zero.");
+        return true; // Allow zero withdrawals without balance changes.
     }
     if (balance >= amount) {
         balance -= amount;
@@ -24,6 +24,8 @@ bool SavingsAccount::withdraw(double amount) {
     }
     return false; // Insufficient balance.
 }
+
+
 void SavingsAccount::displayAccountInfo() const {
     std::cout << "Savings Account - " << accountNumber << " (" << accountHolderName << ")\n";
     std::cout << "Balance: $" << balance << ", Interest Rate: " << interestRate << "%\n";
