@@ -7,25 +7,24 @@ CheckingAccount::CheckingAccount(int accNum, const std::string& holderName, doub
 
 // Deposit money
 void CheckingAccount::deposit(double amount) {
-    if (amount > 0) { // Validate that the deposit amount is positive
-        balance += amount;
-    } else {
-        throw std::invalid_argument("Deposit amount must be positive.");
+    if (amount < 0) {
+        throw std::invalid_argument("Deposit amount cannot be negative.");
     }
+    balance += amount;
 }
 
-// Withdraw with overdraft protection
 bool CheckingAccount::withdraw(double amount) {
-    if (amount <= 0) {
-        throw std::invalid_argument("Withdrawal amount must be positive.");
+    if (amount < 0) {
+        throw std::invalid_argument("Withdrawal amount cannot be negative.");
     }
-
-    if (balance - amount >= -overdraftLimit) {
+    if (amount == 0) {
+        return false; 
+    }
+    if (balance + overdraftLimit >= amount) {
         balance -= amount;
-        return true; // Successful withdrawal
+        return true;
     }
-
-    return false; // Exceeds overdraft limit
+    return false; 
 }
 // Display account information
 void CheckingAccount::displayAccountInfo() const {
