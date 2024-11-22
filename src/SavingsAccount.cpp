@@ -7,18 +7,21 @@ SavingsAccount::SavingsAccount(int accountNumber, const std::string& accountHold
     : BankAccount(accountNumber, accountHolderName, balance), interestRate(interestRate) {}
 
 void SavingsAccount::deposit(double amount) {
-    if (amount <= 0) {
-        throw std::invalid_argument("Deposit amount must be positive.");
-    }
+    // if (amount <= 0) {
+    //     throw std::invalid_argument("Deposit amount must be positive.");
+    // }
     balance += amount;
 }
 
 bool SavingsAccount::withdraw(double amount) {
     if (amount <= 0) {
-        throw std::invalid_argument("Withdrawal amount must be positive.");
+        // throw std::invalid_argument("Withdrawal amount must be positive.");
+                return false;
+
     }
     if (amount > balance) {
-        throw std::runtime_error("Insufficient funds.");
+        // throw std::runtime_error("Insufficient funds.");
+                return false;
     }
     balance -= amount;
     return true;
