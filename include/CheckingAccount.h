@@ -12,7 +12,7 @@ private:
 public: 
 
 //constructor 
-CheckingAccount(int accNum, const std::string& holderName, double initialBalance, double overdraft)
+CheckingAccount(int accNum, const std::string& holderName, double initialBalance, double overdraft);
 
 //override the inhereted methods from the base class (BankAccount)
     void deposit(double amount) override;
