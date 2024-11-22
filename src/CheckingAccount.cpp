@@ -18,7 +18,7 @@ bool CheckingAccount::withdraw(double amount) {
         throw std::invalid_argument("Withdrawal amount cannot be negative.");
     }
     if (amount == 0) {
-        return true; 
+        return false; 
     }
     if (balance + overdraftLimit >= amount) {
         balance -= amount;

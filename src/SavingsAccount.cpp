@@ -16,7 +16,7 @@ bool SavingsAccount::withdraw(double amount) {
         throw std::invalid_argument("Withdrawal amount cannot be negative.");
     }
     if (amount == 0) {
-        return true; // Allow zero withdrawals without balance changes.
+        return false;
     }
     if (balance >= amount) {
         balance -= amount;
