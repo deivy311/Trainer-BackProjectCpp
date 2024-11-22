@@ -7,16 +7,26 @@ SavingsAccount::SavingsAccount(int accNum, const std::string& holderName, double
 
 // Deposit with interest
 void SavingsAccount::deposit(double amount) {
-    balance += amount;
-    addInterest(); // Add interest after deposit
+    if (amount > 0) { // Validate the amount is positive
+        balance += amount;
+        addInterest(); // Add interest after deposit
+    } else {
+        throw std::invalid_argument("Deposit amount must be positive.");
+    }
 }
+
 
 // Withdraw if balance is sufficient
 bool SavingsAccount::withdraw(double amount) {
+    if (amount <= 0) {
+        throw std::invalid_argument("Withdrawal amount must be positive.");
+    }
+    
     if (balance >= amount) {
         balance -= amount;
-        return true;
+        return true; // Successful withdrawal
     }
+    
     return false; // Insufficient balance
 }
 
